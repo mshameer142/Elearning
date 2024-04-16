@@ -1,0 +1,275 @@
+{% load static %}
+<html lang="en">
+  <head>
+   <title>Block member</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" href="{% static 'tabble/css/style.css' %}">
+
+   </head>
+   <body>
+
+   <section class="ftco-section">
+      <div class="container">
+         <div class="row justify-content-center">
+
+            <div class="col-md-6 text-center mb-5">
+               <h2 class="heading-section">BLOCK A MEMBER</h2>
+            </div>
+
+         <div style="color:blue;" align="center">
+            {% if messages %}
+               {% for msg in messages %}
+                     {{ msg }}
+               {% endfor %}
+            {% endif %}
+         </div>
+
+         </div>
+
+            <center>
+            <button type="submit" onclick="loadd_s()" >Students</button>&nbsp &nbsp &nbsp
+            <button type="submit" onclick="loadd_t()" >Teachers</button>&nbsp &nbsp &nbsp
+            </center><br><br>
+
+         {% if t_reg %}
+            <div id="tt_tt">
+            <h2 class="heading-section">TEACHERS</h2>
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                      <tr>
+
+                                 <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Registration date
+                                </th>
+                                <th>
+                                    Qualification
+                                </th>
+                                <th>
+                                    Image
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for i in t_reg %}
+
+                     <tr>
+                          <td>
+                                    {{i.user.first_name}} {{i.user.last_name}}
+                                </td>
+                                <td>
+                                    {{i.user.email}}
+                                </td>
+                                <td>
+                                    {{i.Registration_date}}
+                                </td>
+                                <td>
+                                    {{i.Qualification}}
+                                </td>
+                                <td>
+                                    <img src="/media/{{i.Image}}" alt="No image" height="200px" width="200px">
+                                </td>
+                                <td>
+                                        {% if i.User_role != 'teacher_blocked' %}
+                                            Allowed
+                                        {% endif %}
+                                        {% if i.User_role == 'teacher_blocked' %}
+                                            Blocked
+                                        {% endif %}
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='{% url 'blocks' i.id %}'" name='blo'>Block</button>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='{% url 'allows' i.id %}'" name='all'>Allow</button>
+                                </td>
+
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
+         {% else %}
+
+         <h1 align="center" style="color:blue">No teachers available</h1>
+
+         {% endif %}
+
+      </div>
+
+
+
+
+
+
+       {% if s_reg %}
+            <div id="ss_ss">
+            <h2 class="heading-section">STUDENTS</h2>
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                      <tr>
+
+                         <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Email
+                                </th>
+                                <th>
+                                    Registration date
+                                </th>
+                                <th>
+                                    Number of courses enrolled
+                                </th>
+                                <th>
+                                    Number of courses completed
+                                </th>
+                                <th>
+                                    Image
+                                </th>
+                                 <th>
+                                    Status
+                                </th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for i in s_reg %}
+
+                     <tr>
+                         <td>
+                                    {{i.user.first_name}} {{i.user.last_name}}
+                                </td>
+                                <td>
+                                    {{i.user.email}}
+                                </td>
+                                <td>
+                                    {{i.Registration_date}}
+                                </td>
+                                <td>
+                                    {{i.Num_of_courses_enrolled}}
+                                </td>
+                                <td>
+                                    {{i.Num_of_courses_completed}}
+                                </td>
+                                <td>
+                                    <img src="/media/{{i.Image}}" alt="No image" height="200px" width="200px">
+                                </td>
+                                 <td>
+                                    {% if i.User_role != 'student_blocked' %}
+                                            Allowed
+                                     {% endif %}
+                                     {% if i.User_role == 'student_blocked' %}
+                                            Blocked
+                                     {% endif %}
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='{% url 'blocks1' i.id %}'" name='blo'>Block</button>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='{% url 'allows1' i.id %}'" name='all'>Allow</button>
+                                </td>
+
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
+         {% else %}
+
+         <h1 align="center" style="color:blue">No students available</h1>
+
+         {% endif %}
+
+      </div>
+
+
+        </div>
+
+
+      <br><br>
+      <div align="center">
+         <button type="submit" onclick="location.href='{% url 'admin_home' %}'" name='mybtn2'>Back</button>
+      </div>
+   </section>
+
+   <script src="{% static 'tabble/js/jquery.min.js' %}"></script>
+  <script src="{% static 'tabble/js/popper.js' %}"></script>
+  <script src="{% static 'tabble/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'tabble/js/main.js' %}"></script>
+
+
+    <script>
+
+    function loadd() {
+    var element = document.getElementById("rr_rr");
+    element.style.display = "none";
+
+    var element = document.getElementById("pp_pp");
+    element.style.display = "none";
+
+    var element = document.getElementById("dd_dd");
+    element.style.display = "none";
+
+    var element = document.getElementById("ll_ll");
+    element.style.display = "none";
+    }
+
+
+
+    function loadd_s() {
+
+    var element = document.getElementById("ss_ss");
+    element.style.display = "block";
+
+    var element = document.getElementById("tt_tt");
+    element.style.display = "none";
+
+    }
+
+
+    function loadd_t() {
+
+    var element = document.getElementById("ss_ss");
+    element.style.display = "none";
+
+    var element = document.getElementById("tt_tt");
+    element.style.display = "block";
+
+    }
+
+</script>
+
+   </body>
+</html>

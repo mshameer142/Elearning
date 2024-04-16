@@ -1,0 +1,115 @@
+{% load static %}
+<html lang="en">
+  <head>
+   <title>Course category</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" href="{% static 'tabble/css/style.css' %}">
+
+   </head>
+   <body>
+
+   <section class="ftco-section">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+               <h2 class="heading-section"></h2>
+            </div>
+         </div>
+
+
+         <div style="color:blue;" align="center">
+            {% if messages %}
+               {% for msg in messages %}
+                    <h4 style="color:blue;">{{ msg }}</h4>
+               {% endfor %}
+            {% endif %}
+         </div>
+
+         {% if mkk %}
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                    <tr>
+
+                              <th>
+                                 Course category
+                              </th>
+
+                        <th>
+                                 Image
+                              </th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                  {% for k in mkk %}
+                      <tr>
+
+                              <td>
+                                    {{k.Category_title}}
+                              </td>
+
+                        <td>
+
+                           {% if k.Image %}
+                                    <img src="{{k.Image.url}}" alt="{{k.Category_title}}" width="200" height="200">
+                           {% else %}
+                           No image uploaded
+                           {% endif %}
+                              </td>
+
+                              <td>
+                                 <button type="button" onclick="location.href='{% url 'edit_cat_admin' k.id %}'" name='mybtn2'>Edit</button>
+                              </td>
+
+                               <td>
+                                 <button type="button" onclick="location.href='{% url 'delete_cat_admin' k.id %}'" name='mybtn2'>Delete</button>
+                              </td>
+
+                      </tr>
+                            {% endfor %}
+                    </tbody>
+                  </table>
+
+                        {% else %}
+
+                        <h1 align="center" style="color:blue">No course category added</h1>
+
+                        {% endif %}
+
+
+               </div>
+            </div>
+         </div>
+
+
+      </div>
+      <br><br>
+
+
+   </section>
+
+   <script src="{% static 'tabble/js/jquery.min.js' %}"></script>
+  <script src="{% static 'tabble/js/popper.js' %}"></script>
+  <script src="{% static 'tabble/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'tabble/js/main.js' %}"></script>
+
+
+    <div align="center">
+        <button type="button" onclick="location.href='{% url 'add_cat_admin' %}'" name='mybtn2'>Add</button>
+   <button type="button" onclick="location.href='{% url 'admin_home' %}'" name='mybtn2'>Back</button>
+</div>
+
+
+   </body>
+</html>

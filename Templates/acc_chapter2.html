@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chapter content</title>
+
+  <style>
+        .carousel {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carousel-container {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .carousel-post {
+        flex: 0 0 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 2rem;
+        background-color: lightgray;
+    }
+
+    .carousel-controls {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    #prevBtn,
+    #nextBtn {
+        font-size: 1.5rem;
+        background: none;
+        border: none;
+        cursor: pointer;
+    }
+
+    .carousel-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .dot {
+        width: 10px;
+        height: 10px;
+        background-color: gray;
+        border-radius: 50%;
+        margin: 0 5px;
+        cursor: pointer;
+    }
+
+    .active-dot {
+        background-color: black;
+    }
+  </style>
+
+</head>
+<body>
+
+          <div style="color:blue;" align="center">
+              {% if messages %}
+                  {% for msg in messages %}
+                          {{ msg }}
+                  {% endfor %}
+              {% endif %}
+            </div>
+<h1 align="center">Chapter content</h1>
+
+ <form action="{% url 'compp' %}" method="post">
+        {% csrf_token %}
+
+     {% if sz_cnt %}
+
+
+
+<div class="carousel">
+
+
+    <div class="carousel-container">
+
+
+        {% for i in sz_cnt %}
+
+
+        <div class="carousel-post">
+
+
+
+
+      <input type="hidden" value="{{i.id}}" name="id">
+
+      <h4 align="center">Text content</h4><br>
+
+      <p align="center">{{i.Chapter_text_content}}</p><br><br>
+
+      <a href="media/{{i.Chapter_Content}}" download="">
+
+       <a href="media/{{i.Chapter_Content}}" download="">
+
+              {% if i.Chapter_Content_type == 'Image' %}
+                 <img src="media/{{i.Chapter_Content}}" width="200" height="200" alt="No image"><br><br>
+              {% endif %}
+
+              {% if i.Chapter_Content_type == 'Video' %}
+                  <video width="320" height="240" controls>
+                    <source src="media/{{i.Chapter_Content}}" type="video/mp4">
+                    Your browser does not support the video tag.
+                  </video><br><br>
+               {% endif %}
+
+               {% if i.Chapter_Content_type == 'File' %}
+                  <input type="hidden" value="{{i.Chapter_Content}}" name="chap_cont">
+                   <input type="button" id="btn" value="Download content"/><br><br>
+               {% endif %}
+       </a>
+
+
+
+               {% if mj %}
+
+                        {% for d in mj %}
+                        {% if d.Learn_p_cnt == i %}
+
+                        <div class="input_pox">
+                            <span class="datails">Status</span>
+                             <select name="comm">
+                                {% if d.Status == 'C' %}
+                                 <option value="C" selected>Completed</option>
+                                 <option value="P">Pending</option>
+
+                                {% else %}
+                                  <option value="C">Completed</option>
+                                  <option value="P" selected>Pending</option>
+                                {% endif %}
+                            </select>
+                        </div><br>
+
+                        {% endif %}
+                        {% endfor %}
+
+                        {% else %}
+
+                              <div class="input_pox">
+                                <span class="datails">Status</span><br>
+                                 <select name="comm">
+                                     <option value="C">Completed</option>
+                                     <option value="P">Pending</option>
+                                </select>
+                            </div><br>
+
+                        {% endif %}
+
+
+
+        </div>
+
+
+       {% endfor %}
+
+
+
+
+
+     {% else %}
+
+
+         <h1 align="center" style="color:blue">No contents in this chapter</h1>
+
+
+
+    {% endif %}
+
+
+    </div>
+
+
+      {% if sz_cnt %}
+
+
+    <div class="carousel-controls">
+        <button type="button" id="prevBtn">&lt;</button>
+        <div class="carousel-dots"></div>
+        <button type="button" id="nextBtn">&gt;</button>
+    </div><br><br>
+
+
+    {% endif %}
+
+
+</div>
+
+            {% if sz_cnt %}
+
+            <div align="center">
+                <input type="submit" value="Add learning progress"> &nbsp &nbsp &nbsp &nbsp
+                <input type="reset" value="Cancel"> &nbsp &nbsp &nbsp &nbsp
+                <input type="button" value="Home" onclick="location.href='{% url 'st_book_courses' %}'">
+            </div><br><br>
+
+            {% else %}
+
+            <div align="center">
+                <input type="button" value="Home" onclick="location.href='{% url 'st_book_courses' %}'">
+            </div><br><br>
+
+            {% endif %}
+
+ </form>
+
+
+
+<script>
+
+  const carouselContainer = document.querySelector('.carousel-container');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const dotsContainer = document.querySelector('.carousel-dots');
+const posts = document.querySelectorAll('.carousel-post');
+
+let currentIndex = 0;
+
+function updateCarousel() {
+    carouselContainer.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    const activeDot = dotsContainer.querySelector('.active-dot');
+    if (activeDot) {
+        activeDot.classList.remove('active-dot');
+    }
+    dotsContainer.children[currentIndex].classList.add('active-dot');
+}
+
+function moveToNext() {
+    currentIndex = (currentIndex + 1) % posts.length;
+    updateCarousel();
+}
+
+function moveToPrev() {
+    currentIndex = (currentIndex - 1 + posts.length) % posts.length;
+    updateCarousel();
+}
+
+function createDots() {
+    for (let i = 0; i < posts.length; i++) {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (i === currentIndex) {
+            dot.classList.add('active-dot');
+        }
+        dot.addEventListener('click', () => {
+            currentIndex = i;
+            updateCarousel();
+        });
+        dotsContainer.appendChild(dot);
+    }
+}
+
+nextBtn.addEventListener('click', moveToNext);
+prevBtn.addEventListener('click', moveToPrev);
+createDots();
+
+// Dodatak za automatsko pomjeranje
+function autoMove() {
+    moveToNext();
+}
+
+let autoMoveInterval = setInterval(autoMove, 3000);
+
+carouselContainer.addEventListener('mouseenter', () => {
+    clearInterval(autoMoveInterval);
+});
+
+carouselContainer.addEventListener('mouseleave', () => {
+    autoMoveInterval = setInterval(autoMove, 3000);
+});
+
+</script>
+
+</body>
+</html>

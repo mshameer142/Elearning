@@ -1,0 +1,101 @@
+{% load static %}
+<html lang="en">
+  <head>
+   <title>Chapter</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" href="{% static 'tabble/css/style.css' %}">
+
+   </head>
+   <body>
+
+   <section class="ftco-section">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+               <h2 class="heading-section">COURSE CHAPTERS</h2>
+
+                    <div style="color:blue;" align="center">
+                        {% if messages %}
+                            {% for msg in messages %}
+                                    {{ msg }}
+                            {% endfor %}
+                        {% endif %}
+                 </div>
+
+            </div>
+
+         </div>
+
+         {% if hh %}
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                      <tr>
+
+                                <th>
+                                    Chapter title
+                                </th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                     {% for i in hh %}
+                      <tr>
+
+                              <td>
+                                  {{i.Chapter_title}}
+                              </td>
+
+                              <td>
+                                  <button type="button" onclick="location.href='{% url 'edit_chapter_tr' i.id %}'" name='t_h'>Edit</button>
+                              </td>
+
+                              <td>
+                                  <button type="button" onclick="location.href='{% url 'delete_chapter' i.id %}'" name='del'>Delete</button>
+                              </td>
+
+                       <td>
+                                  <button type="button" onclick="location.href='{% url 'ch_co_tr' i.id %}'" name='del'>Contents</button>
+                              </td>
+
+                      </tr>
+                    {% endfor %}
+
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
+         {% else %}
+
+         <h1 align="center" style="color:blue">No chapters added in this course</h1>
+
+         {% endif %}
+
+      </div>
+      <br><br>
+      <div align="center">
+          <button type="button" onclick="location.href='{% url 'add_chapter' %}'" name='mybtn2'>Add</button>&nbsp&nbsp&nbsp&nbsp&nbsp
+         <button type="button" onclick="location.href='{% url 'course_tr' %}'" name='mybtn2'>Back</button>
+      </div>
+   </section>
+
+   <script src="{% static 'tabble/js/jquery.min.js' %}"></script>
+  <script src="{% static 'tabble/js/popper.js' %}"></script>
+  <script src="{% static 'tabble/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'tabble/js/main.js' %}"></script>
+
+   </body>
+</html>

@@ -1,0 +1,145 @@
+{% load static %}
+<html lang="en">
+  <head>
+   <title>Feedbacks</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" href="{% static 'tabble/css/style.css' %}">
+
+   </head>
+   <body>
+
+   <section class="ftco-section">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+               <h2 class="heading-section">Feedbacks</h2>
+            </div>
+         <div style="color:blue;" align="center">
+            {% if messages %}
+               {% for msg in messages %}
+                     {{ msg }}
+               {% endfor %}
+            {% endif %}
+         </div>
+         </div>
+
+         {% if se %}
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                      <tr>
+
+                                <th>
+                                    Student name
+                                </th>
+                                <th>
+                                    Student email
+                                </th>
+                                <th>
+                                    Teacher name
+                                </th>
+                                <th>
+                                    Teacher email
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Course name
+                                </th>
+                                <th>
+                                    Rating score
+                                </th>
+                                <th>
+                                    Feedback text
+                                </th>
+                                <th>
+                                    Submitted date
+                                </th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for i in se %}
+
+                      <tr>
+
+                              <td>
+                                  {{i.Feed_reg.user.first_name}} {{i.Feed_reg.user.last_name}}
+                              </td>
+
+                              <td>
+                                  {{i.Feed_reg.user.email}}
+                              </td>
+
+                              <td>
+                                  {{i.Feed_tea_reg.user.first_name}} {{i.Feed_tea_reg.user.last_name}}
+                              </td>
+
+                              <td>
+                                  {{i.Feed_tea_reg.user.email}}
+                              </td>
+
+                              <td>
+                                  {{i.Feed_cou.cou_cat.Category_title}}
+                              </td>
+
+                              <td>
+                                  {{i.Feed_cou.Course_title}}
+                              </td>
+
+                              <td>
+                                  {{i.Rating_score}}/5
+                              </td>
+
+                              <td>
+                                  {{i.Feedback_text}}
+                              </td>
+
+                              <td>
+                                  {{i.Submission_date}}
+                              </td>
+
+                              <td>
+                                  <button type="submit" onclick="location.href='{% url 'delete_feedback' i.id %}'" name='del'>Delete</button>
+                              </td>
+
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
+         {% else %}
+
+         <h1 align="center" style="color:blue">No feedbacks available</h1>
+
+         {% endif %}
+
+      </div>
+      <br><br>
+      <div align="center">
+         <button type="submit" onclick="location.href='{% url 'admin_home' %}'" name='mybtn2'>Back</button>
+      </div>
+   </section>
+
+   <script src="{% static 'tabble/js/jquery.min.js' %}"></script>
+  <script src="{% static 'tabble/js/popper.js' %}"></script>
+  <script src="{% static 'tabble/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'tabble/js/main.js' %}"></script>
+
+   </body>
+</html>

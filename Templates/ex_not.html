@@ -1,0 +1,368 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exam notification</title>
+    <style>
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+body{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(123deg, #71b8e7,#9b59b6);
+}
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 35px 40px;
+    border-radius: 5px;
+}
+.container  .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+.container .title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background: linear-gradient(123deg, #71b8e7,#9b59b6);
+}
+.container form .user_details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+form .user_details .input_pox{
+    margin-bottom: 15px;
+    margin: 20px 0 12px 0;
+    width: calc(100% / 2 - 20px);
+}
+.user_details .input_pox .datails{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.user_details .input_pox input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px;
+    transition: all 0.3s ease;
+
+}
+.user_details .input_pox input:focus,
+.user_details .input_pox input:valid{
+border-color: #9b59b6;
+}
+form .gender_details .gender_title{
+    font-size: 20px;
+    font-weight: 500;
+}
+form .gender_details .category{
+    display: flex;
+    width: 80%;
+    margin: 14px 0;
+    justify-content: space-between;
+}
+.gender_details .category label{
+display: flex;
+}
+.gender_details .category .dot{
+height: 18px;
+width: 18px;
+background: #d9d9d9;
+border-radius: 50%;
+margin-right: 10px;
+border: 5px solid transparent;
+}
+#dot-1:checked ~ .category label .one,
+#dot-2:checked ~ .category label .two,
+#dot-3:checked ~ .category label .three{
+border-color: #d9d9d9;
+background-color: #9b59b6;
+}
+
+form .button{
+    height: 45px;
+    margin: 45px 0;
+}
+form .button input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #fff;
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    border-radius: 5px;
+    letter-spacing: 1px;
+    background: linear-gradient(123deg, #71b8e7,#9b59b6);
+
+}
+
+
+form .button input :hover{
+    background: linear-gradient(-123deg, #71b8e7,#9b59b6);
+}
+@media (max-width: 584px){
+    .container{
+        max-width: 100%;
+    }
+    form .user_details .input_pox{
+        margin-bottom: 15px;
+        width:100%;
+    }
+    form .gender_details .category{
+        width: 100%;
+    }
+    .container form .user_details{
+        max-height: 300px;
+        overflow: scroll;
+    }
+    .user_details::-webkit-scrollber{
+     width: 0;
+    }
+}
+
+
+
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+
+
+
+
+
+.button {
+  position: relative;
+  padding: 16px 30px;
+  font-size: 1.1rem;
+  color: var(--color);
+  border: 2px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  text-shadow: 0 0 15px var(--color);
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  transition: 0.5s;
+  z-index: 1;
+}
+
+.button:hover {
+  color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0);
+  box-shadow: 0 0 0px var(--color);
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--color);
+  z-index: -1;
+  transform: scale(0);
+  transition: 0.5s;
+}
+
+.button:hover::before {
+  transform: scale(1);
+  transition-delay: 0.5s;
+  box-shadow: 0 0 10px var(--color),
+    0 0 30px var(--color),
+    0 0 60px var(--color);
+}
+
+.button span {
+  position: absolute;
+  background: var(--color);
+  pointer-events: none;
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--color),
+    0 0 20px var(--color),
+    0 0 30px var(--color),
+    0 0 50px var(--color),
+    0 0 100px var(--color);
+  transition: 0.5s ease-in-out;
+  transition-delay: 0.25s;
+}
+
+.button:hover span {
+  opacity: 0;
+  transition-delay: 0s;
+}
+
+.button span:nth-child(1),
+.button span:nth-child(3) {
+  width: 40px;
+  height: 4px;
+}
+
+.button:hover span:nth-child(1),
+.button:hover span:nth-child(3) {
+  transform: translateX(0);
+}
+
+.button span:nth-child(2),
+.button span:nth-child(4) {
+  width: 4px;
+  height: 40px;
+}
+
+.button:hover span:nth-child(1),
+.button:hover span:nth-child(3) {
+  transform: translateY(0);
+}
+
+.button span:nth-child(1) {
+  top: calc(50% - 2px);
+  left: -50px;
+  transform-origin: left;
+}
+
+.button:hover span:nth-child(1) {
+  left: 50%;
+}
+
+.button span:nth-child(3) {
+  top: calc(50% - 2px);
+  right: -50px;
+  transform-origin: right;
+}
+
+.button:hover span:nth-child(3) {
+  right: 50%;
+}
+
+.button span:nth-child(2) {
+  left: calc(50% - 2px);
+  top: -50px;
+  transform-origin: top;
+}
+
+.button:hover span:nth-child(2) {
+  top: 50%;
+}
+
+.button span:nth-child(4) {
+  left: calc(50% - 2px);
+  bottom: -50px;
+  transform-origin: bottom;
+}
+
+.button:hover span:nth-child(4 ) {
+  bottom: 50%;
+}
+    </style>
+</head>
+<body>
+        <div style="color:blue;" align="center">
+            {% if messages %}
+                {% for msg in messages %}
+                        {{ msg }}
+                {% endfor %}
+            {% endif %}
+            </div>
+
+    <div class="container" style="margin-top:1%;min-height:65%;">
+        <div class="title"><h1>EXAM NOTIFICATION</h1></div><br>
+        <h2 align="center">Your exam schedule</h2><br>
+        <form>
+            <div class="user_details">
+                {% if kk %}
+
+                  {% for t in kk %}
+
+
+                <div class="input_pox">
+
+
+                    <h3>{{t}}</h3><br>
+
+
+
+                </div>
+
+
+                {% endfor %}
+
+                {% else %}
+
+                <h1 align="center" style="color:blue">No exam schedules available</h1>
+
+                {% endif %}
+
+            </div><br><br><br>
+
+
+             <div class="input_pox" align="center">
+
+
+                     <a class="button" href="{% url 'student_home' %}" style="--color:#1e9bff;">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                Back
+              </a>
+
+
+
+                </div>
+
+
+
+
+
+        </form>
+    </div>
+
+
+
+</body>
+</html>

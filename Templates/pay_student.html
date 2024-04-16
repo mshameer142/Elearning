@@ -1,0 +1,117 @@
+{% load static %}
+<html lang="en">
+  <head>
+   <title>Payment</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" href="{% static 'tabble/css/style.css' %}">
+
+   </head>
+   <body>
+
+   <section class="ftco-section">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+               <h2 class="heading-section">Payment</h2>
+               {% if messages %}
+                  {% for msg in messages %}
+                     <h4 align="center" style="color:blue">{{ msg }}</h4>
+                  {% endfor %}
+               {% endif %}
+         </div>
+         </div>
+
+         {% if ds %}
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                      <tr>
+
+                         <th>
+                                    Teacher name
+                                </th>
+                                <th>
+                                    Teacher email
+                                </th>
+                                <th>
+                                    Category
+                                </th>
+                                <th>
+                                    Course name
+                                </th>
+                                <th>
+                                    Payment status
+                                </th>
+                                <th>
+                                    Course fee
+                                </th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for i in ds %}
+
+                      <tr>
+
+                               <td>
+                                    {{i.enrol_cou.cou_reg.user.first_name}} {{i.enrol_cou.cou_reg.user.last_name}}
+                                </td>
+                                <td>
+                                    {{i.enrol_cou.cou_reg.user.email}}
+                                </td>
+                                <td>
+                                    {{i.enrol_cou.cou_cat.Category_title}}
+                                </td>
+                                <td>
+                                    {{i.enrol_cou.Course_title}}
+                                </td>
+                                <td>
+                                    {{i.Payment_status}}
+                                </td>
+                                <td>
+                                    {{i.enrol_cou.Course_fee}}
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='{% url 'stu_buk_teacherr' i.id %}'" name='t_h'>Pay</button>
+                                </td>
+
+
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
+         {% else %}
+
+         <h1 align="center">No bookings with teacher's approval</h1>
+
+         {% endif %}
+
+      </div>
+      <br><br>
+      <div align="center">
+         <button type="submit" onclick="location.href='{% url 'student_home' %}'" name='mybtn2'>Back</button>
+      </div>
+   </section>
+
+   <script src="{% static 'tabble/js/jquery.min.js' %}"></script>
+  <script src="{% static 'tabble/js/popper.js' %}"></script>
+  <script src="{% static 'tabble/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'tabble/js/main.js' %}"></script>
+
+   </body>
+</html>

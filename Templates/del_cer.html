@@ -1,0 +1,126 @@
+{% load static %}
+<html lang="en">
+  <head>
+   <title>Delete certificate</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+   <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+   <link rel="stylesheet" href="{% static 'tabble/css/style.css' %}">
+
+   </head>
+   <body>
+
+   <section class="ftco-section">
+      <div class="container">
+         <div class="row justify-content-center">
+            <div class="col-md-6 text-center mb-5">
+               <h2 class="heading-section">DELETE CERTIFICATES</h2>
+            </div>
+         <div style="color:blue;" align="center">
+            {% if messages %}
+               {% for msg in messages %}
+                     {{ msg }}
+               {% endfor %}
+            {% endif %}
+         </div>
+         </div>
+
+         {% if df %}
+
+         <div class="row">
+            <div class="col-md-12">
+               <div class="table-wrap">
+                  <table class="table table-bordered table-dark table-hover">
+                    <thead>
+                      <tr>
+
+                                <th>
+                                    Student name
+                                </th>
+                                <th>
+                                    Student email
+                                </th>
+                                <th>
+                                    Subject name
+                                </th>
+                                <th>
+                                    Course name
+                                </th>
+                                <th>
+                                    Teacher name
+                                </th>
+                                <th>
+                                    Teacher email
+                                </th>
+                                <th>
+                                    Certificate
+                                </th>
+
+                      </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for i in df %}
+
+                      <tr>
+
+                                <td>
+                                    {{i.enrol_reg.user.first_name}} {{i.enrol_reg.user.last_name}}
+                                </td>
+                                <td>
+                                    {{i.enrol_reg.user.email}}
+                                </td>
+                                <td>
+                                    {{i.enrol_cou.cou_cat.Category_title}}
+                                </td>
+                                <td>
+                                    {{i.enrol_cou.Course_title}}
+                                </td>
+                                <td>
+                                    {{i.enrol_tea.user.first_name}} {{i.enrol_tea.user.last_name}}
+                                </td>
+                                <td>
+                                    {{i.enrol_tea.user.email}}
+                                </td>
+                                <td>
+                                    <a href="{{i.Certificate.url}}" download="">
+                                         <input type="button" id="btn" value="Download"/>
+                                    </a>
+                                </td>
+                                <td>
+                                    <button type="button" onclick="location.href='{% url 'delete_cert' i.id %}'" name='del'>Delete</button>
+                                </td>
+
+                      </tr>
+                    {% endfor %}
+                    </tbody>
+                  </table>
+               </div>
+            </div>
+         </div>
+
+         {% else %}
+
+         <h1 align="center" style="color:blue">No certificates available</h1>
+
+         {% endif %}
+
+      </div>
+      <br><br>
+      <div align="center">
+         <button type="submit" onclick="location.href='{% url 'admin_home' %}'" name='mybtn2'>Back</button>
+      </div>
+   </section>
+
+   <script src="{% static 'tabble/js/jquery.min.js' %}"></script>
+  <script src="{% static 'tabble/js/popper.js' %}"></script>
+  <script src="{% static 'tabble/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'tabble/js/main.js' %}"></script>
+
+   </body>
+</html>
